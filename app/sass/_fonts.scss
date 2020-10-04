@@ -1,0 +1,6 @@
+$dir: '../fonts';
+
+$helvetica: 'Helvetica';
+
+@include font-face( $dir, $helvetica );
+@include font-face( $dir, $helvetica, $type: 'Bold' );

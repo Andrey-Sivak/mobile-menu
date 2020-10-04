@@ -1,0 +1,108 @@
+.header-menu {
+  @include flex( $direction: column, $j-c: center, $a-i: center );
+  overflow: hidden;
+  height: 100vh;
+  background-color: color( main-color );
+  padding-right: 1rem;
+  transform: translateY(-100%);
+  @include transition-ease;
+
+  &.active {
+    transform: translateY(0);
+  }
+
+  &__btn {
+    @include pos-absolute( 1rem, 1rem );
+    z-index: z( default );
+    height: 20px;
+    width: 28px;
+    cursor: pointer;
+    @include transition-ease;
+  }
+
+  &__burger {
+    @include pos-absolute( .5rem, 0 );
+    width: 28px;
+    height: 3px;
+    background-color: color(white);
+
+    @at-root %burger_pseudo {
+      content: '';
+      position: absolute;
+      height: 3px;
+      background-color: color( white );
+      @include transition-ease;
+    }
+
+    &:before {
+      @extend %burger_pseudo;
+      top: -8px;
+      width: 28px;
+    }
+
+    &:after {
+      @extend %burger_pseudo;
+      width: 20px;
+      top: 8px;
+    }
+
+    &.active {
+      transform: rotate( 720deg );
+      background: transparent;
+
+      &:before {
+        transform: rotate(45deg) translate(5px, 8px);
+      }
+
+      &:after {
+        transform: rotate(-45deg) translate(3px, -7px);
+        width: 28px;
+      }
+    }
+  }
+
+  &__wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    opacity: .98;
+    visibility: hidden;
+
+    &.active {
+      visibility: visible;
+    }
+  }
+
+  &__item {
+    transform: translateX(100vw);
+    @include transition-ease;
+
+    &.active {
+      transform: translateX(0);
+    }
+  }
+
+  &__link {
+    color: color( white );
+    display: inline-block;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    padding: 2rem;
+    @include transition-ease;
+
+    @include on-event {
+      color: color( secondary-color );
+    }
+
+    &.select {
+      color: color( secondary-color );
+    }
+  }
+}
+
+@for $i from 1 through 5 {
+  .header-menu__item:nth-child(#{$i}) {
+    transition-delay: ( $i * .1s ) + 0.15s;
+  }
+}
